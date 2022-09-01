@@ -1,12 +1,12 @@
 import React from "react";
 import logo from '../assets/images/LOGO.svg';
-import basket from '../assets/images/basket.svg';
-import { useState } from "react";
 import Basket from './Basket'
+import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import {setCountProducts} from '../redux/actions/shop'
 
-
-
-export default function Header({setProduct,allLenghtProducts,productSearch,setFilteringProducts,basketClickValue}) {
+function HeaderComponent({setProduct,allLenghtProducts,productSearch,setFilteringProducts,basketClickValue}) {
 
     function visibleProduscts() {
         setProduct(allLenghtProducts);
@@ -24,13 +24,25 @@ export default function Header({setProduct,allLenghtProducts,productSearch,setFi
 
     return(
         <div className="header">
-            <img className="logo" src={logo} alt=""/>
-            <div onClick={() => visibleProduscts()} className="products">
-                ALL PRODUCTS
+            <NavLink to='/'>
+                <img className="logo" src={logo} alt=""/>
+            </NavLink>
+            <div  onClick={() => visibleProduscts()} className="products">
+                Все продукты
             </div>
-            <input  onChange={(event) => filtering(event)} className="searchProducts" type="text" placeholder="product search"/>
+            <input  onChange={(event) => filtering(event)} className="searchProducts" type="text" placeholder="Поиск товара"/>
             <Basket basketClickValue={basketClickValue}>
             </Basket>
         </div>
     )
 }
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    setProduct: setCountProducts
+},dispatch);
+
+const mapStateToProps = state => ({
+    allLenghtProducts: state.shop.allLenghtProducts,
+})
+
+export const Header = connect(mapStateToProps,mapDispatchToProps)(HeaderComponent);

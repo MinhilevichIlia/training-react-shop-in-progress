@@ -1,3 +1,10 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Andale Mono, monospace;
+    background-color: #E5E5E5;
+    font-size: 13.5px;
+}
 body {
     width: 100%;
     height: 100%;
@@ -11,18 +18,19 @@ body {
 #root {
     width: 100%;
 }
+.logo {
+    height: 50px;
+    padding: 0;
+}
 img {
     width: 200px;
     height: 200px;
     padding-bottom: 20px;
 }
 .wrapper {
-    flex-wrap: wrap;
     margin-top: 50px;
     display: flex;
     text-align: center;
-    justify-content: space-around;
-    align-items: center;
 }
 .wrapperName {
     width: 400px;
@@ -38,7 +46,10 @@ img {
 }
 .firstProducts {
     height: 400px;
-    width: 400px;
+    width: 395px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 .modal {
     display: none;
@@ -75,7 +86,7 @@ img {
     height: 50px;
     width: 50px;
     position: absolute;
-    right: 36px;
+    right: 40px;
     top: -5px;
 }
 .basketMainContent{
@@ -85,5 +96,41 @@ img {
     text-align: center;
     justify-content: space-around;
     align-items: center;
+}
+.filterByPrice {
+    display: flex;
+    flex-direction: column;
+    width: 170px;
+}
+.firstValue{
+    width: 85px;
+}
+.secondValue {
+    width: 85px;
+}
+.mainPageProducts {
+    display: flex;
+    flex-wrap: wrap;
+}
+.catalogLogo{
+    cursor: pointer;
+    height: 100px;
+    width: 100px;
+}
+.wrapperCatalog {
+    display: flex;
+    flex-direction: column;
+}
+.products{
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold ;
+}
+.productImg{
+    cursor: pointer;
+}
+.searchProducts {
+    background: white;
+    border: none;
 }
 

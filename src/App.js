@@ -4,15 +4,16 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import GetItems from './Components/GetItems';
-import Header from './Components/Header';
-import Basket from './Components/Basket';
+import {GetItems} from './Components/GetItems';
+import {Header} from './Components/Header';
 import BasketPage from './Components/BasketPage'
-  function App() {
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {setAllLenghtProducts,setProductSearch} from '../src/redux/actions/shop';
+
+
+  function AppComponent({setAllLenghtProducts,productsSearch,setProductSearch}) {
     
-    const [countProducts , setCountProducts] = useState(3);
-    const [allLenghtProducts,setAllLenghtProducts] = useState();
-    const [productsSearch,setProductSearch] = useState();
     const [filteringProducts,setFilteringProducts] = useState();
     const [basketClickValue,setBasketClickValue] = useState([]);
     
@@ -32,21 +33,19 @@ import BasketPage from './Components/BasketPage'
     },[]);
 
   return(
+    <BrowserRouter>
     <div>
       <Header 
         productSearch={productsSearch} 
-        setProduct={setCountProducts}
-        allLenghtProducts={allLenghtProducts} 
         setFilteringProducts={setFilteringProducts} 
         basketClickValue={basketClickValue}
       />
-      <BrowserRouter>
+      <div>
           <Routes>
             <Route path="/" element={
               <div className='wrapper'>
                 <GetItems 
                   setProduct={setProduct}
-                  product={countProducts}
                   setData={setData} 
                   filteringProducts={filteringProducts} 
                   setBasketClickValue={setBasketClickValue}
@@ -54,15 +53,27 @@ import BasketPage from './Components/BasketPage'
                 />
               </div>}>
             </Route>
-            <Route path='basket' element={
+            <Route path='/basket' element={
               <BasketPage
                 basketClickValue={basketClickValue}
+                setBasketClickValue={setBasketClickValue}
               />} 
             />
           </Routes>
+          </div>
+          </div>
         </BrowserRouter>
-    </div>
+
   )
 }
 
-export default App;
+const mapStateToProps = state => ({
+  productsSearch: state.shop.productsSearch
+
+})
+const mapDispatchToProps = dispatch => bindActionCreators({
+  setAllLenghtProducts: setAllLenghtProducts,
+  setProductSearch: setProductSearch
+},dispatch);
+export const App = connect(mapStateToProps,mapDispatchToProps)(AppComponent);
+
